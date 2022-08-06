@@ -8,6 +8,7 @@ import {
   WebGLRenderer,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import Interaction from "./Interaction";
 import Loader from "./Loader";
 export default class World {
   constructor(canvas) {
@@ -22,6 +23,7 @@ export default class World {
     );
     this.loader = new Loader();
     this.loader.loadModel(this.scene);
+    this.interaction = new Interaction(this.scene, this.camera);
     this.camera.position.z = 5;
     //this.setCube();
     this.setRenderer();
@@ -33,7 +35,7 @@ export default class World {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   }
   setLights() {
-    this.AmbientLight = new AmbientLight(0xfffff, 1);
+    this.AmbientLight = new AmbientLight("white", 1);
     this.scene.add(this.AmbientLight);
   }
   /* setCube() {
@@ -47,6 +49,7 @@ export default class World {
     this.controls.update();
   }
   run() {
+    this.interaction.update();
     this.renderer.render(this.scene, this.camera);
   }
 }
