@@ -8,7 +8,7 @@ import {
   WebGLRenderer,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
+import Loader from "./Loader";
 export default class World {
   constructor(canvas) {
     this.canvas = canvas;
@@ -20,9 +20,10 @@ export default class World {
       0.1,
       1000
     );
+    this.loader = new Loader();
+    this.loader.loadModel(this.scene);
     this.camera.position.z = 5;
-    this.scene.add(this.cube);
-    this.setCube();
+    //this.setCube();
     this.setRenderer();
     this.setLights();
     this.setControls();
@@ -35,12 +36,12 @@ export default class World {
     this.AmbientLight = new AmbientLight(0xfffff, 1);
     this.scene.add(this.AmbientLight);
   }
-  setCube() {
+  /* setCube() {
     const geometry = new BoxGeometry(3, 3, 3);
     const material = new MeshStandardMaterial({ color: 0x0f0f0f0 });
-    const cube = new Mesh(geometry, material);
-    this.scene.add(cube);
-  }
+    this.cube = new Mesh(geometry, material);
+    this.scene.add(this.cube);
+  }*/
   setControls() {
     this.controls = new OrbitControls(this.camera, this.canvas);
     this.controls.update();
